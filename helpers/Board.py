@@ -1,7 +1,8 @@
 import pygame as pg
 from typing import Dict
 
-from .helpers.Tile import Tile
+from .Cell import Cell
+from .Tile import Tile
 
 
 class Board:
@@ -15,10 +16,10 @@ class Board:
                 self.settings["tiles_in_col"] * self.settings["tile_height"],
             )
         )
-
+        
         self.board = [
             [
-                Tile(x, y, len(self.tile_settings[self.settings["tilemap_in_use"]]))
+                Cell(x, y, len(self.tile_settings[self.settings["tilemap_in_use"]]))
                 for x in range(self.settings["tiles_in_row"])
             ]
             for y in range(self.settings["tiles_in_col"])
@@ -26,17 +27,17 @@ class Board:
 
     def draw_board(self) -> None:
         for row in self.board:
-            for tile in row:
-                if isinstance(tile.tile, pg.Surface):
-                    self.screen.blit(tile.tile, (tile.xIdx, tile.yIdx))
+            for cell in row:
+                if cell.tile is not None:
+                    self.screen.blit(cell.tile.img, (cell.xIdx, cell.yIdx))
                     continue
 
                 pg.draw.rect(
                     self.screen,
-                    tile.tile,
+                    (0, 0, 0),
                     pg.Rect(
-                        tile.xIdx * self.settings["tile_width"],
-                        tile.yIdx * self.settings["tile_height"],
+                        cell.xIdx * self.settings["tile_width"],
+                        cell.yIdx * self.settings["tile_height"],
                         self.settings["tile_width"],
                         self.settings["tile_height"],
                     ),

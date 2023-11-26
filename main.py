@@ -3,11 +3,22 @@ import tomllib
 import pygame as pg
 from typing import Dict
 
-from src.Board import Board
+from helpers.Board import Board
+from helpers.Tile import Tile
+
+with open("settings.toml", "rb") as settings_file:
+    SETTINGS = tomllib.load(settings_file)
+
+TOTAL_TILES = Tile.total_tiles(SETTINGS)
+
+
+def collapse():
+    ...
 
 
 def main_loop(settings: Dict):
     board = Board(settings)
+
     clock = pg.time.Clock()
 
     running = True
@@ -20,6 +31,8 @@ def main_loop(settings: Dict):
         clock.tick(settings["visualizer"]["fps"])
         pg.display.update()
 
+    pg.quit()
+
 
 if __name__ == "__main__":
     print("Wave Function Collapse")
@@ -29,7 +42,4 @@ if __name__ == "__main__":
     pg.init()
     pg.display.set_caption("wave function collapse")
 
-    with open("settings.toml", "rb") as settings_file:
-        settings = tomllib.load(settings_file)
-
-    main_loop(settings)
+    main_loop(SETTINGS)
