@@ -1,0 +1,20 @@
+[visualizer]
+tilemap_in_use = "roads"
+
+fps = 60
+
+tile_width = 16
+tile_height = 16
+
+tiles_in_row = 30
+tiles_in_col = 30
+
+[tilemap.roads] 
+0 = [0, 0, 0, 0]
+1 = [0, 1, 0, 2]
+2 = [0, 3, 0, 3]
+3 = [3, 0, 0, 0]
+4 = [0, 0, 3, 3]
+5 = [3, 3, 0, 0]
+6 = [3, 3, 0, 3]
+7 = [3, 3, 3, 3]
