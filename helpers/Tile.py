@@ -12,6 +12,9 @@ class Tile:
     rule: List[int]
 
     def rotate_tile(self, angle: int) -> None:
+        if angle == 0:
+            return
+        
         self.img = pg.transform.rotate(self.img, angle)
         self.rule = self.rule[-angle // 90 :] + self.rule[: 4 - (angle // 90)]
 
@@ -24,8 +27,8 @@ class Tile:
                 pg.transform.scale(
                     pg.image.load(f"assets/{tilemap_in_use}/{img}.png"),
                     (
-                        settings["visualizer"]["tile_width"],
-                        settings["visualizer"]["tile_height"],
+                        settings["visualizer"]["cell_width"],
+                        settings["visualizer"]["cell_height"],
                     ),
                 ),
                 rule,
@@ -41,3 +44,6 @@ class Tile:
                 total_tiles.append(tile)
 
         return total_tiles
+
+    def __repr__(self) -> str:
+        return f"Tile({self.rule=})"
